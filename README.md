@@ -212,8 +212,6 @@ Consulte o README do repositório para configuração completa e obtenção da A
 
 Permite que o Claude gere criativos estáticos de teste automaticamente usando IA (Google Gemini). Usado pela skill `meta-ads-competitor` após a análise — se este MCP estiver configurado, o Claude cria os criativos direto; se não estiver, entrega sugestões de copy e briefing visual.
 
-**Repositório:** [nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server)
-
 **1. Obtenha uma API key do Google Gemini** (gratuita):
 - Acesse [Google AI Studio](https://aistudio.google.com/apikey)
 - Crie uma nova API key e copie
@@ -224,10 +222,10 @@ Permite que o Claude gere criativos estáticos de teste automaticamente usando I
 {
   "mcpServers": {
     "nanobanana-mcp": {
-      "command": "uvx",
-      "args": ["nanobanana-mcp-server@latest"],
+      "command": "npx",
+      "args": ["-y", "@ycse/nanobanana-mcp"],
       "env": {
-        "GEMINI_API_KEY": "SUA_API_KEY_AQUI"
+        "GOOGLE_AI_API_KEY": "SUA_API_KEY_AQUI"
       }
     }
   }
@@ -236,7 +234,7 @@ Permite que o Claude gere criativos estáticos de teste automaticamente usando I
 
 **3. Reinicie o Claude Desktop.**
 
-> Alternativa: instale via pip com `pip install nanobanana-mcp-server` ou via npx com `npx nano-banana-mcp`.
+> Só precisa ter o Node.js instalado (se você já usa o Claude Code, já tem).
 
 ---
 

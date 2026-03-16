@@ -48,7 +48,7 @@ Antes de instalar, verifique se você tem:
 As skills ficam disponíveis em qualquer projeto que você abrir no Claude Code.
 
 ```bash
-git clone https://github.com/seu-usuario/claude-ads-skills ~/.claude/skills/ads
+git clone https://github.com/davigraeff-v4/claude-searchads-skill ~/.claude/skills/ads
 ```
 
 #### Opção B — Só para um projeto específico
@@ -57,7 +57,7 @@ Dentro da pasta do projeto que você quer usar:
 
 ```bash
 cd /caminho/do/seu/projeto
-git clone https://github.com/seu-usuario/claude-ads-skills .claude/skills/ads
+git clone https://github.com/davigraeff-v4/claude-searchads-skill .claude/skills/ads
 ```
 
 > Não sabe o caminho do projeto? Arraste a pasta para dentro do terminal — o caminho aparece automaticamente.
@@ -145,13 +145,70 @@ As skills de ads **não devem** ativar. Se ativarem, a `description` do `SKILL.m
 
 ---
 
-## Usando com MCP do Meta Ads (opcional)
+## Configurando os MCPs (opcional)
 
-Se você tem o **Facebook Ads Library MCP** instalado e configurado no `claude_desktop_config.json`, as skills detectam automaticamente e se conectam via API para análise automática.
+As skills funcionam **sem nenhum MCP** — basta colar os exemplos de anúncios no chat. Mas se você quiser que o Claude busque e analise os anúncios automaticamente via API, configure um ou ambos os MCPs abaixo.
 
-Se **não tem o MCP**, não tem problema — as skills funcionam no modo manual: basta colar os exemplos de anúncios diretamente no chat.
+### MCP do Meta Ads Library
 
-### Como verificar se o MCP está ativo
+Permite buscar anúncios de qualquer marca diretamente da Biblioteca de Anúncios do Meta.
+
+**Repositório:** [facebook-ads-library-mcp](https://github.com/RamsesAguirre777/facebook-ads-library-mcp)
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/RamsesAguirre777/facebook-ads-library-mcp.git
+cd facebook-ads-library-mcp
+pip install -r requirements.txt
+
+# 2. Obtenha um token do Facebook
+#    Acesse: https://developers.facebook.com/tools/explorer/
+#    Gere um token com permissão "ads_read"
+```
+
+**3. Configure no Claude Desktop** — adicione ao `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "facebook_ads": {
+      "command": "python",
+      "args": [
+        "/caminho/para/facebook-ads-library-mcp/facebook_ads_mcp_complete.py",
+        "--facebook-token",
+        "SEU_TOKEN_AQUI"
+      ]
+    }
+  }
+}
+```
+
+**4. Reinicie o Claude Desktop.**
+
+> Onde fica o `claude_desktop_config.json`?
+> - **Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+> - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+---
+
+### MCP do Google Ads Transparency Center
+
+Permite buscar anúncios de qualquer marca diretamente do Google Ads Transparency Center.
+
+**Repositório:** [google-ads-library-mcp](https://github.com/talknerdytome-labs/google-ads-library-mcp)
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/talknerdytome-labs/google-ads-library-mcp.git
+cd google-ads-library-mcp
+npm install
+```
+
+Consulte o README do repositório para configuração completa e obtenção da API key.
+
+---
+
+### Como verificar se os MCPs estão ativos
 
 No Claude Code, digite:
 
@@ -159,7 +216,10 @@ No Claude Code, digite:
 Quais ferramentas MCP estão disponíveis?
 ```
 
-Se aparecer tools com prefixo `fb_ad_library:` na lista, o MCP está ativo e a skill usará a API automaticamente.
+- Se aparecer tools com prefixo `fb_ad_library:` → MCP do Meta está ativo
+- Se aparecer tools com prefixo `google_ads:` → MCP do Google está ativo
+
+As skills detectam automaticamente quais MCPs estão disponíveis e alternam entre modo automático e manual.
 
 ---
 

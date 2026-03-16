@@ -1,0 +1,33 @@
+name: "\U0001F4AC Feedback ou Sugestão de Melhoria"
+description: "Sugira uma melhoria, ajuste ou funcionalidade nova para as skills"
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Qual skill?
+      options:
+        - meta-ads-competitor
+        - google-ads-competitor
+        - ad-variations-creator
+        - README / Instalação
+        - Geral (todas)
+    validations:
+      required: true
+  - type: textarea
+    id: descricao
+    attributes:
+      label: O que pode melhorar?
+      description: "Descreva o que aconteceu e o que você esperava"
+      placeholder: "Ex: Quando peço para analisar a marca X, o relatório não traz a seção de copies campeãs..."
+    validations:
+      required: true
+  - type: textarea
+    id: sugestao
+    attributes:
+      label: Sugestão (opcional)
+      description: "Se tiver uma ideia de como resolver, descreva aqui"
+      placeholder: "Ex: Seria bom adicionar uma seção de..."
+    validations:
+      required: false

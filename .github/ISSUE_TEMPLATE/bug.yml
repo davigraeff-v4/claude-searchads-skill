@@ -1,0 +1,42 @@
+name: "\U0001F41B Bug ou Erro"
+description: "Reporte algo que não está funcionando como esperado"
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Qual skill?
+      options:
+        - meta-ads-competitor
+        - google-ads-competitor
+        - ad-variations-creator
+        - README / Instalação
+    validations:
+      required: true
+  - type: textarea
+    id: o-que-aconteceu
+    attributes:
+      label: O que aconteceu?
+      description: "Descreva o problema"
+      placeholder: "Ex: A skill não ativa quando eu peço para analisar concorrentes no Meta..."
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que deveria acontecer?
+      placeholder: "Ex: Deveria ativar a skill meta-ads-competitor e iniciar a coleta..."
+    validations:
+      required: true
+  - type: textarea
+    id: ambiente
+    attributes:
+      label: Ambiente
+      description: "Qual setup você está usando?"
+      placeholder: |
+        - Claude Desktop / Claude Code
+        - MCPs configurados: Meta Ads, Google Ads, Nano Banana
+        - Sistema: Mac / Windows / Linux
+    validations:
+      required: false

@@ -336,7 +336,20 @@ cd .claude/skills/ads && git pull
 
 ---
 
-## Contribuindo
+## Feedback e Sugestões
+
+Encontrou algo que pode melhorar? Abra uma issue diretamente no GitHub:
+
+1. Acesse [Issues](https://github.com/davigraeff-v4/claude-searchads-skill/issues)
+2. Clique em **New Issue**
+3. Escolha o tipo: **Feedback/Sugestão** ou **Bug/Erro**
+4. Preencha o formulário e envie
+
+Não precisa saber programar — só descrever o que aconteceu e o que esperava.
+
+---
+
+## Contribuindo com código
 
 1. Faça um fork do repositório
 2. Edite o `SKILL.md` da skill que deseja melhorar

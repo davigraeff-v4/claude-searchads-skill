@@ -208,6 +208,38 @@ Consulte o README do repositório para configuração completa e obtenção da A
 
 ---
 
+### MCP do Nano Banana (geração de criativos)
+
+Permite que o Claude gere criativos estáticos de teste automaticamente usando IA (Google Gemini). Usado pela skill `meta-ads-competitor` após a análise — se este MCP estiver configurado, o Claude cria os criativos direto; se não estiver, entrega sugestões de copy e briefing visual.
+
+**Repositório:** [nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server)
+
+**1. Obtenha uma API key do Google Gemini** (gratuita):
+- Acesse [Google AI Studio](https://aistudio.google.com/apikey)
+- Crie uma nova API key e copie
+
+**2. Configure no Claude Desktop** — adicione ao `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "nanobanana-mcp": {
+      "command": "uvx",
+      "args": ["nanobanana-mcp-server@latest"],
+      "env": {
+        "GEMINI_API_KEY": "SUA_API_KEY_AQUI"
+      }
+    }
+  }
+}
+```
+
+**3. Reinicie o Claude Desktop.**
+
+> Alternativa: instale via pip com `pip install nanobanana-mcp-server` ou via npx com `npx nano-banana-mcp`.
+
+---
+
 ### Como verificar se os MCPs estão ativos
 
 No Claude Code, digite:
@@ -218,6 +250,7 @@ Quais ferramentas MCP estão disponíveis?
 
 - Se aparecer tools com prefixo `fb_ad_library:` → MCP do Meta está ativo
 - Se aparecer tools com prefixo `google_ads:` → MCP do Google está ativo
+- Se aparecer tools com prefixo `nanobanana-mcp:` → MCP do Nano Banana está ativo (geração de criativos)
 
 As skills detectam automaticamente quais MCPs estão disponíveis e alternam entre modo automático e manual.
 
@@ -226,14 +259,16 @@ As skills detectam automaticamente quais MCPs estão disponíveis e alternam ent
 ## Fluxo recomendado de uso
 
 ```
-1. meta-ads-competitor   →  analisa concorrentes no Meta
+1. meta-ads-competitor   →  analisa concorrentes no Meta (+ gera criativos se Nano Banana estiver ativo)
 2. google-ads-competitor →  analisa concorrentes no Google
-3. ad-variations-creator →  gera variações com base nos dados coletados
+3. ad-variations-creator →  gera variações de copy com base nos dados coletados
 ```
 
 As skills são encadeáveis — o `ad-variations-creator` usa automaticamente os dados coletados pelas outras duas na mesma sessão.
 
 Você pode usar cada skill individualmente também. O `ad-variations-creator` funciona standalone se você colar exemplos de anúncios diretamente.
+
+**Para geração de criativos estáticos:** a skill `meta-ads-competitor` vai pedir tipografia, cores da marca, identidade visual e logo antes de gerar qualquer criativo via Nano Banana. Sem essas informações, ela entrega sugestões de copy e briefing visual.
 
 ---
 
